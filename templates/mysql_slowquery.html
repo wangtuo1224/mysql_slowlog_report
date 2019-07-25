@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		#hor-minimalist-b
+		{
+			font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+			font-size: 14px;
+			background: #fff;
+			margin: 10px;
+			width: auto;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		#hor-minimalist-b th
+		{
+			font-size: 14px;
+			font-weight: normal;
+			color: #039;
+			padding: 10px 8px;
+			border-bottom: 2px solid #6678b1;
+		}
+		#hor-minimalist-b td
+		{
+			border-bottom: 1px solid #ccc;
+			color: #669;
+			padding: 6px 8px;
+		}
+		#hor-minimalist-b tbody tr:hover td
+		{
+			color: #009;
+		}
+	</style>
+</head>
+<body>
+<table id="hor-minimalist-b" style="table-layout:fixed;word-break:break-all;">
+	<thead>
+	<tr>
+		<th width="3%">序号</th>
+		<th width="8.5%">数据库</th>
+		<th width="10%">查询用户</th>
+		<th>语句示例</th>
+		<th width="9%">第一次出现的时间</th>
+		<th width="9%">最后一次出现的时间</th>
+		<th width="4.5%">出现次数</th>
+		<th width="5.5%">平均耗时(秒)</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	{{/*		直接利用的解析出来的JSON数据*/}}
+	{{/*		{{ range $i,$v := .Classes }}*/}}
+	{{/*			<tr>*/}}
+	{{/*				<td title="序号" width="3%">{{ $i | format_id }}</td>*/}}
+	{{/*				<td title="数据库" width="8.5%">{{ .Metrics.Dbs.Value }}</td>*/}}
+	{{/*				<td title="查询用户" width="10%">{{ .Metrics.Users.Value }}@{{ .Metrics.Hosts.Value }}</td>*/}}
+	{{/*				<td title="语句示例" style="text-align: left">{{ .Examples.Query }}</td>*/}}
+	{{/*				<td title="第一次出现的时间" width="9.5%">{{ .Ts_min | format_date }}</td>*/}}
+	{{/*				<td title="最后一次出现的时间" width="9.5%">{{ .Ts_max | format_date }}</td>*/}}
+	{{/*				<td title="出现次数" width="4.5%">{{ .Query_count }}</td>*/}}
+	{{/*				<td title="平均耗时(秒)" width="5.5%">{{ .Metrics.Query_time.Pct_95 }}</td>*/}}
+	{{/*			</tr>*/}}
+	{{/*		{{ end }}*/}}
+
+	{{/*重新组装过的JSON数据*/}}
+	{{ range $i,$v := . }}
+		<tr>
+			<td title="序号" width="3%">{{ $i | format_id }}</td>
+			<td title="数据库" width="8.5%">{{ .Db }}</td>
+			<td title="查询用户" width="10%">{{ .User }}@{{ .Host }}</td>
+			<td title="语句示例" style="text-align: left">{{ .Query }}</td>
+			<td title="第一次出现的时间" width="9.5%">{{ .Ts_min | format_date }}</td>
+			<td title="最后一次出现的时间" width="9.5%">{{ .Ts_max | format_date }}</td>
+			<td title="出现次数" width="4.5%">{{ .Query_count }}</td>
+			{{/*保留一位精度，四舍五入*/}}
+			<td title="平均耗时(秒)" width="5.5%">{{ .Pct_95 | printf "%.1f"}}</td>
+		</tr>
+	{{ end }}
+	</tbody>
+</table>
+<footer>
+	<p style="text-align: center"><a href="https://github.com">GitHub</a> <a href="https://aikbuk.com">个人技术博客</a></p>
+</footer>
+</body>
+</html>
+        
