@@ -38,7 +38,10 @@ sed '8188a\   return Encode::decode_utf8($json);' -i /usr/bin/pt-query-digest
 ```bash
 git clone https://github.com/wangtuo1224/mysql_slowlog_report.git
 cd mysql_slowlog_report
+# 编译可执行文件到当前目录
 go build
+# 将可执行文件安装到GOPATH
+go install
 ```
 ### 运行
 示例
