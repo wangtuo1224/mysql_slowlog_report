@@ -10,7 +10,7 @@
 
 ## 使用
 ### 安装pt-query-digest工具
-[安装参考](https://aikbuk.com/2018/07/mysql-slowlog/)
+[安装参考](https://aikbuk.com/2018/07/06/mysql-slowlog/)
 ```bash
 # 安装依赖
 yum install perl-DBI perl-DBD-MySQL perl-Time-HiRes perl-IO-Socket-SSL perl-Digest-MD5 perl-TermReadKey -y
@@ -34,7 +34,7 @@ sed '8188c\   #return $json;' -i /usr/bin/pt-query-digest
 sed '8188a\   return Encode::decode_utf8($json);' -i /usr/bin/pt-query-digest
 ```
 ### 编译
-需要有go环境，[go安装参考](https://aikbuk.com/2018/10/go%E5%AE%89%E8%A3%85/)
+需要有go环境，[go安装参考](https://aikbuk.com/2018/10/31/go%E5%AE%89%E8%A3%85/)
 ```bash
 git clone https://github.com/wangtuo1224/mysql_slowlog_report.git
 cd mysql_slowlog_report
@@ -65,6 +65,9 @@ Flags:
       --email.from=""  
                               Email from user. // 邮件发送者账号
       --email.password=""     Email from user's password. // 邮件发送者密码或授权码
+      --exclude.users=""     Exclude mysql users comma separated. // 过滤指定用户的慢查询，多个以逗号分隔
+      --analyze.day=-1       -1 means yestarday, -2 means the day before yestarday. // -1表示昨天00:00:00到昨天23:59:59，-2表示前天00:00:00到昨天的23:59:59
+
       --version               Show application version. // 显示版本
       
 ./mysql_slowlog_report --limit=10 --ptbin.path=/usr/bin/pt-query-digest --slowlog.path=/tmp/slowquery.log --tag="AWS Master" --email.recivers=407165729@qq.com --email.serverHost="smtp.qq.com" --email.serverPort=587 --email.from=407165729@qq.com --email.password="yourpassword"
